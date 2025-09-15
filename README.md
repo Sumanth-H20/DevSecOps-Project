@@ -1,6 +1,7 @@
 # DevSecOps-Project
 🧮 Spring Boot Calculator with Modern UI
-Prerequisites
+
+#Prerequisites
 Java 17 or higher
 Maven 3.6+
 Docker (optional)
