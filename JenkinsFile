@@ -13,13 +13,13 @@ pipeline{
         deploymentName = "devsecops"
         containerName = "devsecops-container"
         serviceName = "devsecops-svc"
-        imageName = "manojkrishnappa/calculator-app:${GIT_COMMIT}"
+        imageName = "shebbar17/calculator-app:${GIT_COMMIT}"
     }
 
     stages{
         stage('Git-Chekout'){
             steps{
-                git branch: 'main', url: 'https://github.com/ManojKRISHNAPPA/Calulator-springboot.git'
+                git branch: 'main', url: 'https://github.com/Sumanth-H20/Calulator-springboot.git'
             }
         }
 
@@ -119,8 +119,8 @@ pipeline{
             steps {
                 withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                 sh 'printenv'
-                sh 'docker build -t manojkrishnappa/calculator-app:""$GIT_COMMIT"" .'
-                sh 'docker push manojkrishnappa/calculator-app:""$GIT_COMMIT""'
+                sh 'docker build -t shebbar17/calculator-app:""$GIT_COMMIT"" .'
+                sh 'docker push shebbar17/calculator-app:""$GIT_COMMIT""'
                 }
             }
         }
@@ -155,15 +155,15 @@ pipeline{
                     steps {
                         withKubeConfig(
                             caCertificate: '',
-                            clusterName: 'microdegree-cluster',
+                            clusterName: 'test-cluster',
                             contextName: '',
                             credentialsId: 'kube',
-                            namespace: 'microdegree',
+                            namespace: 'test',
                             restrictKubeConfigAccess: false,
                             serverUrl: 'https://AF682864FCC4679EC4B430CB3613E722.gr7.us-east-1.eks.amazonaws.com'
                         ) {
                             sh "kubectl get pods -n microdegree"
-                            sh "sed -i 's#replace#manojkrishnappa/calculator-app:${GIT_COMMIT}#g' Deployment.yml"
+                            sh "sed -i 's#replace#shebbar17/calculator-app:${GIT_COMMIT}#g' Deployment.yml"
                             sh "kubectl apply -f Deployment.yml -n microdegree"
                         }
                     }
